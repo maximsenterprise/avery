@@ -8,6 +8,7 @@
 */
 
 #include "interrupts/gdt.h"
+#include "interrupts/idt.h"
 #include "output.h"
 #include "vga.h"
 
@@ -15,6 +16,8 @@ void init() {
     // Initialize other systems
     init_gdt();
     kernel_log("GDT initialized\n");
+    init_idt();
+    kernel_log("IDT initialized\n");
     init_vga();
 
     // Main kernel loop
