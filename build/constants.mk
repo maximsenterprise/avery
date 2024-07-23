@@ -1,6 +1,11 @@
-# constants.mk
-# As part of the Avery project
-# Created by Maxims Enterprise in 2024
+
+#	constants.mk
+#	As part of the Avery project
+#	Created by Maxims Enterprise in 2024
+#	--------------------------------------------------
+#	Description: Constants for the Makefile
+#	Copyright (c) 2024 Maxims Enterprise
+
 
 # Define folder constants
 
@@ -37,9 +42,9 @@ GRUB = grub-mkrescue
 GRUB_FLAGS = -o ~/.temp/avery.iso iso
 
 # File constants
-C_SRCS = $(wildcard $(SRC)/*.c)
-CXX_SRCS = $(wildcard $(SRC)/*.cpp)
-AS_SRCS = $(wildcard $(SRC)/*.asm)
+C_SRCS = $(shell find $(SRC) -name "*.c")
+CXX_SRCS = $(shell find $(SRC) -name "*.cpp")
+AS_SRCS = $(shell find $(SRC) -name "*.asm")
 BOOT_SRCS = $(wildcard $(BOOT)/*.asm)
 C_OBJS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(C_SRCS))
 CXX_OBJS = $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(CXX_SRCS))

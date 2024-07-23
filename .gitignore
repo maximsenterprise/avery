@@ -4,3 +4,4 @@
 obj
 .clang-format
 avery.iso
+compile_commands.json

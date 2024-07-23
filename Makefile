@@ -1,6 +1,11 @@
-# Makefile
-# As part of the Avery project
-# Created by Maxims Enterprise in 2024
+ #
+ # Makefile
+ # As part of the Avery project
+ # Created by Maxims Enterprise in 2024
+ # --------------------------------------------------
+ # Description: Makefile for the project
+ # Copyright (c) 2024 Maxims Enterprise
+ #
 
 # Include the constants from constants.mk
 include build/constants.mk
@@ -13,6 +18,7 @@ all: $(FINAL)
 # Define the final target
 $(FINAL): $(BIN)
 	# For problems, I have to copy this to my HHD
+	cp $(BIN) iso/boot/avery.bin
 	mkdir -p ~/.temp
 	cp -rf iso ~/.temp/iso
 	$(GRUB) $(GRUB_FLAGS)
