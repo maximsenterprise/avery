@@ -12,8 +12,12 @@ all: $(FINAL)
 
 # Define the final target
 $(FINAL): $(BIN)
-	cp $(BIN) iso/boot/avery.bin
+	# For problems, I have to copy this to my HHD
+	mkdir -p ~/.temp
+	cp -rf iso ~/.temp/iso
 	$(GRUB) $(GRUB_FLAGS)
+	cp ~/.temp/avery.iso "$(FULL_PATH)/avery.iso"
+	rm -rf ~/.temp
 
 # Define the binary target
 $(BIN): $(C_OBJS) $(CXX_OBJS) $(AS_OBJS) $(BOOT_OBJS)	
@@ -41,8 +45,8 @@ $(OBJ)/%.o: $(BOOT)/%.asm
 
 # Define the clean target
 clean:
-	rm -rf $(BIN) $(OBJ) $(FINAL)
-	mkdir -p $(BIN) $(OBJ)
+	rm -rf bin $(OBJ) $(FINAL) $(BIN)
+	mkdir -p bin $(OBJ)
 
 # Define the debug target
 debug:

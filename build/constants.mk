@@ -3,19 +3,22 @@
 # Created by Maxims Enterprise in 2024
 
 # Define folder constants
+
+FULL_PATH = $(shell pwd)
+
 SRC = avery
 INCLUDE = include
 BIN = ./bin/avery
 OBJ = obj
 ISO = iso
-FINAL = $(BIN)/avery.iso
+FINAL = avery.iso
 BOOT = boot
 
 # Define compilers and their respective flags
 
 # The C compiler
 CC = x86_64-elf-gcc
-CFLAGS = -m32 -Wall -Wextra -Werror -std=c99 -pedantic -g -I $(INCLUDE) -c 
+CFLAGS = -m32 -I $(INCLUDE) -c 
 
 # The C++ compiler
 CXX = x86_64-elf-g++
@@ -31,7 +34,7 @@ ASFLAGS = -f elf32
 
 # Grub for booting
 GRUB = grub-mkrescue
-GRUB_FLAGS = -o $(FINAL) $(ISO)
+GRUB_FLAGS = -o ~/.temp/avery.iso iso
 
 # File constants
 C_SRCS = $(wildcard $(SRC)/*.c)
