@@ -7,11 +7,14 @@
  Copyright (c) 2024 Maxims Enterprise
 */
 
+#include "interrupts/gdt.h"
 #include "output.h"
 #include "vga.h"
 
 void init() {
     // Initialize other systems
+    init_gdt();
+    kernel_log("GDT initialized\n");
     init_vga();
 
     // Main kernel loop
