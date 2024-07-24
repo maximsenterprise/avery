@@ -79,7 +79,12 @@ void out_ch(unsigned char c) {
 
     // Backspace
     if (c == 0x08) {
-        if (cursor_x != 0) cursor_x--;
+        if (cursor_x > 0) {
+            cursor_x--;  // Move the cursor left
+            pos =
+                textmemoryptr + (cursor_y * 80 + cursor_x);  // Get the position
+            *pos = ' ' | attr;  // Write a space to erase the previous character
+        }
     }
     // Tab
     // We move the cursor to the right by (TAB_WIDTH) spaces

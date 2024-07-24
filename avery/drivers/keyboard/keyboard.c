@@ -76,25 +76,39 @@ char get_ch() {
     current_char = 0;
     return c;
 }
-
 char* input(const char* prompt) {
     enable_keyboard();
     out((char*)prompt);
 
     static char buffer[256];
     char* ptr = buffer;
+    char* buffer_end = buffer + sizeof(buffer) - 1;  // To prevent overflow
     char c;
 
-    while ((c = get_ch()) != '\n') {
-        if (c == 0) {
-            continue;
-        }
-        *ptr++ = c;
-        out_ch(c);
-    }
-    *ptr = '\0';
+    while (1) {
+        c = get_ch();
 
-    out("\n");
+        if (c == '\n') {
+            // End input on newline
+            break;
+        } else if (c == 0x08) {  // Handle backspace
+            if (ptr > buffer) {  // Ensure we are not at the start of the buffer
+                ptr--;           // Move the pointer back
+                // Clear the character on the screen
+                out_ch(0x08);  // Move cursor back
+                out_ch(' ');   // Overwrite with space
+                out_ch(0x08);  // Move cursor back again
+            }
+        } else if (c >= ' ' && ptr < buffer_end) {
+            // Handle valid characters
+            *ptr++ = c;
+            out_ch(c);  // Output the character to the screen
+        }
+    }
+
+    *ptr = '\0';  // Null-terminate the string
+
+    out("\n");  // Print newline after input
     disable_keyboard();
     return buffer;
 }

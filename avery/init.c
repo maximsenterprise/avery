@@ -12,6 +12,7 @@
 #include "interrupts/idt.h"
 #include "interrupts/irq.h"
 #include "interrupts/isr.h"
+#include "mscript/terminal.h"
 #include "output.h"
 #include "utils.h"
 #include "vga.h"
@@ -34,7 +35,7 @@ void init() {
 
     while (1) {
         char* in = input("> ");
-        out(in);
+        process_input(in);
         out("\n");
     }
 }
