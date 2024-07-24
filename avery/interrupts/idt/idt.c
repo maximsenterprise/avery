@@ -15,6 +15,7 @@
 struct idt_entry idt[256];
 struct idt_ptr idtp;
 
+// Set the gate at index num in the IDT
 void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel,
                   unsigned char flags) {
     idt[num].base_lo = base & 0xFFFF;

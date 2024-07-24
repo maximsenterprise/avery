@@ -18,11 +18,11 @@
 
 start:
 	mov  esp, stack
+	sti
 	call init
-	jmp  $
+	hlt
 
-section .bss
-resb    8192
+	section .bss
+	resb    8192
 
 stack:
-

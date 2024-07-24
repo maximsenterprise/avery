@@ -9,6 +9,7 @@
 
 #include "interrupts/gdt.h"
 #include "interrupts/idt.h"
+#include "interrupts/irq.h"
 #include "interrupts/isr.h"
 #include "output.h"
 #include "utils.h"
@@ -19,16 +20,16 @@ void init() {
     init_gdt();
     init_idt();
     init_isrs();
+    init_irqs();
 
-    /* nit_vga(); */
+    init_vga();
 
     // Main kernel loop
     //--------------------------
-    enable_interrupts();
-    /* lear();
+    clear();
     out("Avery Kernel\n");
     out("Version Alpha 0.0.1\n");
-    out("Created by Maxims Enterprise\n"); */
+    out("Created by Maxims Enterprise\n");
 
     while (1) {
     }

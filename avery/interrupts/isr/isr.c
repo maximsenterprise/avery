@@ -12,6 +12,7 @@
 #include "interrupts/idt.h"
 #include "output.h"
 
+// Set all isrs to their respective handler
 void init_isrs() {
     idt_set_gate(0, (unsigned)isr0, 0x08, 0x8E);
     idt_set_gate(1, (unsigned)isr1, 0x08, 0x8E);
@@ -47,6 +48,7 @@ void init_isrs() {
     idt_set_gate(31, (unsigned)isr31, 0x08, 0x8E);
 }
 
+// Handle faults
 void fault_handler(struct regs *r) {
     if (r->int_no < 32) {
         panic(exception_messages[r->int_no]);
