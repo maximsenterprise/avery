@@ -14,7 +14,7 @@
 #include "utils.h"
 
 // Global variables defined in vga.h
-unsigned short *textmemoryptr;
+unsigned short *textmemoryptr = (unsigned short *)0xB8000;
 unsigned int cursor_x, cursor_y = 0;
 unsigned int color = 0x0F;
 
@@ -32,7 +32,7 @@ void scroll() {
                     (unsigned char *)textmemoryptr + temporary * 80 * 2,
                     (25 - temporary) * 80 * 2);
 
-        memory_setw((unsigned char *)textmemoryptr + (25 - temporary) * 80 * 2,
+        memory_setw((unsigned short *)textmemoryptr + (25 - temporary) * 80 * 2,
                     blank, 80);
         cursor_y = 25 - 1;
     }
@@ -116,9 +116,9 @@ void out_ch(unsigned char c) {
 
 // Print a full string (calling the out_ch function many times)
 void out(char *text) {
-    int i;
-    for (i = 0; i < calclen(text); i++) {
-        out_ch(text[i]);
+    int i = 0;
+    while (text[i]) {
+        out_ch(text[i++]);
     }
 }
 
@@ -151,7 +151,7 @@ void error(char *msg) {
 }
 
 void panic(char *msg) {
-    set_color(LIGHT_RED);
+    set_color(RED);
     out("avery panicked: ");
     out(msg);
     while (1) {

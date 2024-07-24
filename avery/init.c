@@ -9,21 +9,27 @@
 
 #include "interrupts/gdt.h"
 #include "interrupts/idt.h"
+#include "interrupts/isr.h"
 #include "output.h"
+#include "utils.h"
 #include "vga.h"
 
 void init() {
     // Initialize other systems
     init_gdt();
-    kernel_log("GDT initialized\n");
     init_idt();
-    kernel_log("IDT initialized\n");
-    init_vga();
+    init_isrs();
+
+    /* nit_vga(); */
 
     // Main kernel loop
     //--------------------------
-    clear();
+    enable_interrupts();
+    /* lear();
     out("Avery Kernel\n");
     out("Version Alpha 0.0.1\n");
-    out("Created by Maxims Enterprise\n");
+    out("Created by Maxims Enterprise\n"); */
+
+    while (1) {
+    }
 }

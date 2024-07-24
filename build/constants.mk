@@ -51,3 +51,6 @@ CXX_OBJS = $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(CXX_SRCS))
 AS_OBJS = $(patsubst $(SRC)/%.asm, $(OBJ)/%.o, $(AS_SRCS))
 BOOT_OBJS = $(patsubst $(BOOT)/%.asm, $(OBJ)/%.o, $(BOOT_SRCS))
 
+# Disk constants
+DISK = disk.img
+

@@ -10,28 +10,30 @@
 #include "utils.h"
 
 // Copy memory from source to destination
-unsigned char *memory_copy(unsigned char *dest, unsigned char *source,
-                           int nbytes) {
-    int i;
-    for (i = 0; i < nbytes; i++) {
-        *(dest + i) = *(source + i);
+unsigned char *memory_copy(unsigned char *dest, const unsigned char *src,
+                           int count) {
+    for (int i = 0; i < count; i++) {
+        dest[i] = src[i];
     }
     return dest;
 }
 
 // Set memory to a value
-unsigned char *memory_set(unsigned char *dest, unsigned char val, int len) {
-    unsigned char *temp = (unsigned char *)dest;
-    for (; len != 0; len--) *temp++ = val;
+unsigned char *memory_set(unsigned char *dest, unsigned char val, int count) {
+    for (int i = 0; i < count; i++) {
+        dest[i] = val;
+    }
     return dest;
 }
 
 // Set memory to a value
 // The same as above, but for 16-bit values
-unsigned short *memory_setw(unsigned char *dest, unsigned short val, int len) {
-    unsigned short *temp = (unsigned short *)dest;
-    for (; len != 0; len--) *temp++ = val;
-    return (unsigned short *)dest;
+unsigned short *memory_setw(unsigned short *dest, unsigned short value,
+                            int count) {
+    for (int i = 0; i < count; ++i) {
+        dest[i] = value;
+    }
+    return dest;
 }
 
 // Calculate the length of a string
@@ -48,12 +50,18 @@ int calclen(const char *str) {
 // To enforce string equality in C, beacuse there is not suitable '==' operator
 // for two strings
 int strcompare(const char *str1, const char *str2) {
-    while (*str1 != 0 && *str2 != 0) {
+    while (*str1 && *str2) {
         if (*str1 != *str2) {
             return 0;
         }
         str1++;
         str2++;
     }
-    return 1;
+    return *str1 == *str2;
 }
+
+// Enable interrupts
+void enable_interrupts() { __asm__ __volatile__("sti"); }
+
+// Disable interrupts
+void disable_interrupts() { __asm__ __volatile__("cli"); }

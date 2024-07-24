@@ -5,19 +5,24 @@
 	; Description: Bootloader for the Avery Kernel
 	; Copyright (c) 2024 Maxims Enterprise
 
-	BITS    32
+	BITS 32
+
 	section .text
-	;       Multiboot header
 	align   4
 	dd      0x1BADB002
 	dd      0x00
 	dd      - (0x1BADB002 + 0x00)
 
-	global _start
+	global start
 	extern init
 
-_start:
-	cli
+start:
+	mov  esp, stack
 	call init
-	hlt
+	jmp  $
+
+section .bss
+resb    8192
+
+stack:
 

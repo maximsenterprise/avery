@@ -10,13 +10,13 @@
 # Include the constants from constants.mk
 include build/constants.mk
 
-.PHONY: all clean run test
+.PHONY: all clean run debug disk
 
 # Define the default target
 all: $(FINAL)
 
 # Define the final target
-$(FINAL): $(BIN)
+$(FINAL): $(BIN) disk
 	# For problems, I have to copy this to my HHD
 	cp $(BIN) iso/boot/avery.bin
 	mkdir -p ~/.temp
@@ -49,10 +49,16 @@ $(OBJ)/%.o: $(BOOT)/%.asm
 	mkdir -p $(@D)
 	$(AS) $(ASFLAGS) -o $@ $<
 
+# Creating the FAT16 disk
+disk:
+	dd if=/dev/zero of=$(DISK) bs=2880 count=10000
+	mkfs.fat -F 16 $(DISK)
+
 # Define the clean target
 clean:
 	rm -rf bin $(OBJ) $(FINAL) $(BIN)
 	mkdir -p bin $(OBJ)
+	rm -rf $(DISK)
 
 # Define the debug target
 debug:
@@ -62,4 +68,4 @@ debug:
 
 # Define the run target for QEMU testing
 run: $(FINAL)
-	qemu-system-x86_64 -cdrom $(FINAL)
+	qemu-system-x86_64 -hda $(DISK) -cdrom $(FINAL) -boot d
