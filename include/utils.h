@@ -18,5 +18,6 @@ int calclen(const char *str);
 int strcompare(const char *str1, const char *str2);
 void enable_interrupts();
 void disable_interrupts();
+int is_whitespace(char c);
 
 #endif  // UTILS_H

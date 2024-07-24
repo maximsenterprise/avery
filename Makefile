@@ -26,7 +26,7 @@ $(FINAL): $(BIN) disk
 	rm -rf ~/.temp
 
 # Define the binary target
-$(BIN): $(C_OBJS) $(CXX_OBJS) $(AS_OBJS) $(BOOT_OBJS)	
+$(BIN): $(BOOT_OBJS) $(C_OBJS) $(CXX_OBJS) $(AS_OBJS) 
 	$(LD) $(LDFLAGS) -o $@ $^
 
 # Define the C object files

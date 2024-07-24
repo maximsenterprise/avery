@@ -65,3 +65,8 @@ void enable_interrupts() { __asm__ __volatile__("sti"); }
 
 // Disable interrupts
 void disable_interrupts() { __asm__ __volatile__("cli"); }
+
+// Check if a character is a whitespace
+int is_whitespace(char c) {
+    return c == ' ' || c == '\t' || c == '\n' || c == '\r';
+}

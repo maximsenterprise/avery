@@ -7,6 +7,7 @@
  Copyright (c) 2024 Maxims Enterprise
 */
 
+#include "input.h"
 #include "interrupts/gdt.h"
 #include "interrupts/idt.h"
 #include "interrupts/irq.h"
@@ -29,8 +30,11 @@ void init() {
     clear();
     out("Avery Kernel\n");
     out("Version Alpha 0.0.1\n");
-    out("Created by Maxims Enterprise\n");
+    out("Created by Maxims Enterprise\n\n");
 
     while (1) {
+        char* in = input("> ");
+        out(in);
+        out("\n");
     }
 }
