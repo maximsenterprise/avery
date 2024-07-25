@@ -76,6 +76,7 @@ char get_ch() {
     current_char = 0;
     return c;
 }
+
 char* input(const char* prompt) {
     enable_keyboard();
     out((char*)prompt);

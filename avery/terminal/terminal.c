@@ -9,6 +9,7 @@
 
 #include "mscript/terminal.h"
 
+#include "mscript/medit.h"
 #include "output.h"
 #include "utils.h"
 
@@ -23,8 +24,12 @@ void process_input(const char* input) {
         out("MScript\n");
         out("Version Alpha 0.0.1\n");
         out("Created by Maxims Enterprise\n");
+    } else if (strcompare(input, "medit")) {
+        medit();
     } else {
+        set_color(LIGHT_RED);
         out("Command not found: ");
         out((char*)input);
+        set_color(WHITE);
     }
 }

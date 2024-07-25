@@ -19,5 +19,9 @@ int strcompare(const char *str1, const char *str2);
 void enable_interrupts();
 void disable_interrupts();
 int is_whitespace(char c);
-
+int count_delim(const char *str, char delim);
+char **split(const char *str, char delim, int *count);
+char *strcopy(char *dest, const char *src, int count);
+char *strchar(const char *str, char c);
+char *substring(const char *str, int start, int end);
 #endif  // UTILS_H

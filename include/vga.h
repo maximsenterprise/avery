@@ -17,6 +17,7 @@
  * - init_vga()
  *   *********
  *   This function should be called only in the init() function
+ * - set_cursor_pos(int x, int y)
  * [var]: textmemoryptr
  * [var]: cursor_x, cursor_y
  * [var]: color
@@ -28,6 +29,7 @@
 extern void scroll();
 extern void move_cursor();
 extern void init_vga();
+extern void set_cursor_pos(int x, int y);
 
 extern unsigned short *textmemoryptr;
 extern unsigned int cursor_x, cursor_y;

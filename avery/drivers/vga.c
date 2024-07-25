@@ -164,3 +164,9 @@ void panic(char *msg) {
         __asm__ __volatile__("hlt");
     }
 }
+
+void set_cursor_pos(int x, int y) {
+    cursor_x = x;
+    cursor_y = y;
+    move_cursor();
+}
