@@ -24,7 +24,7 @@
  * [const]: TAB_WIDTH
  */
 
-#define TAB_WIDTH 8
+#define TAB_WIDTH 4
 
 extern void scroll();
 extern void move_cursor();

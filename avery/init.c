@@ -7,12 +7,12 @@
  Copyright (c) 2024 Maxims Enterprise
 */
 
+#include "fision/terminal.h"
 #include "input.h"
 #include "interrupts/gdt.h"
 #include "interrupts/idt.h"
 #include "interrupts/irq.h"
 #include "interrupts/isr.h"
-#include "mscript/terminal.h"
 #include "output.h"
 #include "utils.h"
 #include "vga.h"

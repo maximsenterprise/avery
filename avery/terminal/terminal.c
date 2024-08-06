@@ -7,13 +7,15 @@
  Copyright (c) 2024 Maxims Enterprise
 */
 
-#include "mscript/terminal.h"
+#include "fision/terminal.h"
 
-#include "mscript/medit.h"
+#include "fision/medit.h"
 #include "output.h"
 #include "utils.h"
 
 void process_input(const char* input) {
+    int delim = count_delim(input, ' ');
+    char** parts = split(input, ' ', &delim);
     if (strcompare(input, "cls") || strcompare(input, "clear")) {
         clear();
     } else if (strcompare(input, "avery")) {
@@ -26,6 +28,8 @@ void process_input(const char* input) {
         out("Created by Maxims Enterprise\n");
     } else if (strcompare(input, "medit")) {
         medit();
+    } else if (strcompare(parts[0], "capture")) {
+        capture((const char**)parts);
     } else {
         set_color(LIGHT_RED);
         out("Command not found: ");

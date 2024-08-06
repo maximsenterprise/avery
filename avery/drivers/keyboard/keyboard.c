@@ -14,13 +14,15 @@
 #include "output.h"
 #include "system/io.h"
 #include "utils.h"
+#include "vga.h"
 
 char current_char = 0;
 
 #ifdef DEBUG
 enum KEYBOARD_LAYOUT current_layout = ESP;
-current_layout = kbdes;
-current_layout_shift = kbdes_shift;
+unsigned char* current = kbdes;
+unsigned char* current_shift = kbdes_shift;
+unsigned char* current_opt = kbdes_opt;
 #else
 enum KEYBOARD_LAYOUT current_layout = USA;
 unsigned char* current = kbdus;
@@ -28,6 +30,7 @@ unsigned char* current_shift = kbdus_shift;
 #endif
 
 int shift = 0;
+int opt = 0;
 
 // Set the current char to the one in the buffer
 void keyboard_handler(struct regs* r) {
@@ -37,14 +40,20 @@ void keyboard_handler(struct regs* r) {
         scancode &= 0x7F;
         if (scancode == 42 || scancode == 54) {
             shift = 0;
+        } else if (scancode == 56) {
+            opt = 0;
         }
     } else {
         // Key pressed
         if (scancode == 42 || scancode == 54) {
             shift = 1;
+        } else if (scancode == 56) {
+            opt = 1;
         } else {
             if (shift) {
                 current_char = current_shift[scancode];
+            } else if (opt) {
+                current_char = current_opt[scancode];
             } else {
                 current_char = current[scancode];
             }
@@ -95,15 +104,19 @@ char* input(const char* prompt) {
         } else if (c == 0x08) {  // Handle backspace
             if (ptr > buffer) {  // Ensure we are not at the start of the buffer
                 ptr--;           // Move the pointer back
-                // Clear the character on the screen
-                out_ch(0x08);  // Move cursor back
-                out_ch(' ');   // Overwrite with space
-                out_ch(0x08);  // Move cursor back again
+                out_ch('\b');    // Output backspace to the screen
             }
         } else if (c >= ' ' && ptr < buffer_end) {
             // Handle valid characters
             *ptr++ = c;
             out_ch(c);  // Output the character to the screen
+        } else if (c == '\t') {
+            for (int i = TAB_WIDTH; i > 0; i--) {
+                if (ptr < buffer_end) {
+                    *ptr++ = ' ';
+                }
+            }
+            out_ch('\t');
         }
     }
 

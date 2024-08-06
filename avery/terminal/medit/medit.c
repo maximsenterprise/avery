@@ -7,7 +7,7 @@
  Copyright (c) 2024 Maxims Enterprise
 */
 
-#include "mscript/medit.h"
+#include "fision/medit.h"
 
 #include "drivers/keyboard.h"
 #include "input.h"
@@ -48,7 +48,10 @@ void medit() {
                 buffer[chars] = 0;
                 line_lengths[current_y]--;
             } else {
-                current_x = line_lengths[current_y - 1] + 1;
+                if (current_y == 0) {
+                    continue;
+                }
+                current_x = line_lengths[current_y - 1] + 2;
                 current_y--;
                 set_cursor_pos(current_x, current_y);
             }
@@ -58,6 +61,14 @@ void medit() {
             chars++;
             buffer[chars] = c;
             line_lengths[current_y]++;
+        } else if (c == '\t') {
+            for (int i = 0; i < TAB_WIDTH; i++) {
+                out_ch(' ');
+                current_x++;
+                chars++;
+                buffer[chars] = ' ';
+                line_lengths[current_y]++;
+            }
         }
     }
     disable_keyboard();

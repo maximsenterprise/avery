@@ -89,7 +89,9 @@ void out_ch(unsigned char c) {
     // Tab
     // We move the cursor to the right by (TAB_WIDTH) spaces
     else if (c == 0x09) {
-        cursor_x = (cursor_x + TAB_WIDTH) & ~(TAB_WIDTH - 1);
+        for (int i = 0; i < TAB_WIDTH; i++) {
+            out_ch(' ');
+        }
     }
     // Carriage return
     else if (c == '\r') {
@@ -169,4 +171,35 @@ void set_cursor_pos(int x, int y) {
     cursor_x = x;
     cursor_y = y;
     move_cursor();
+}
+
+void out_hex(unsigned int n) {
+    int tmp;
+
+    out("0x");
+
+    char noZeroes = 1;
+
+    int i;
+    for (i = 28; i > 0; i -= 4) {
+        tmp = (n >> i) & 0xF;
+        if (tmp == 0 && noZeroes != 0) {
+            continue;
+        }
+
+        if (tmp >= 0xA) {
+            noZeroes = 0;
+            out_ch(tmp - 0xA + 'a');
+        } else {
+            noZeroes = 0;
+            out_ch(tmp + '0');
+        }
+    }
+
+    tmp = n & 0xF;
+    if (tmp >= 0xA) {
+        out_ch(tmp - 0xA + 'a');
+    } else {
+        out_ch(tmp + '0');
+    }
 }

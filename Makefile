@@ -61,10 +61,8 @@ clean:
 	rm -rf $(DISK)
 
 # Define the debug target
-debug:
-	override CFLAGS += -D DEBUG
-	override CXXFLAGS += -D DEBUG
-	$(MAKE) run
+debug: CFLAGS += -D DEBUG
+debug: run
 
 # Define the run target for QEMU testing
 run: $(FINAL)

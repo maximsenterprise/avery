@@ -22,6 +22,7 @@
  *   ^^^^^^^^^^^^^^^^^^^^^^^^^
  *   This 'halts' the system when called
  * - clear()
+ * - out_hex(unsigned char c)
  */
 
 enum Color {
@@ -51,5 +52,6 @@ extern void error(char *msg);
 extern void panic(char *msg);
 extern void reset_color();
 extern void clear();
+extern void out_hex(unsigned int n);
 
 #endif  // OUTPUT_H
