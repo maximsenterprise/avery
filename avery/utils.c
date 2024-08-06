@@ -144,3 +144,37 @@ char **split(const char *str, char delim, int *num_tokens) {
 
     return token_ptrs;
 }
+
+// Function to convert chars to strings
+const char *char_to_string(char c) {
+    switch (c) {
+        case '\n':
+            return "\\n";
+        case '\r':
+            return "\\r";
+        case '\t':
+            return "\\t";
+        case '\b':
+            return "\\b";
+        case '\\':
+            return "\\\\";
+        case '\'':
+            return "\\'";
+        default:
+            if (c >= ' ' && c <= '~') {
+                static char buf[2] = {0};
+                buf[0] = c;
+                return buf;
+            } else {
+                return "";
+            }
+    }
+}
+
+// Convert a hex number to binary
+void hex_to_bin(unsigned int hex, char *bin_str) {
+    for (int i = 0; i < 32; i++) {
+        bin_str[31 - i] = (hex & (1 << i)) ? '1' : '0';
+    }
+    bin_str[32] = '\0';
+}

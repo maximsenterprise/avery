@@ -22,8 +22,8 @@ void process_input(const char* input) {
         out("Avery Kernel\n");
         out("Version Alpha 0.0.1\n");
         out("Created by Maxims Enterprise\n");
-    } else if (strcompare(input, "mscript")) {
-        out("MScript\n");
+    } else if (strcompare(input, "fision")) {
+        out("Fision\n");
         out("Version Alpha 0.0.1\n");
         out("Created by Maxims Enterprise\n");
     } else if (strcompare(input, "medit")) {
