@@ -53,6 +53,7 @@ $(OBJ)/%.o: $(BOOT)/%.asm
 disk:
 	dd if=/dev/zero of=$(DISK) bs=2880 count=10000
 	mkfs.fat -F 16 $(DISK)
+	mcopy -i $(DISK) test.txt ::
 
 # Define the clean target
 clean:
