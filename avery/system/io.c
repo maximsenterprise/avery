@@ -18,3 +18,13 @@ unsigned char inb(unsigned short port) {
 void outb(unsigned short port, unsigned char data) {
     __asm__ __volatile__("outb %1, %0" : : "dN"(port), "a"(data));
 }
+
+void outw(coreuint16_t port, coreuint16_t value) {
+    __asm__ __volatile__("outw %0, %1" : : "a"(value), "Nd"(port));
+}
+
+coreuint16_t inw(coreuint16_t port) {
+    coreuint16_t data;
+    __asm__ __volatile__("inw %1, %0" : "=a"(data) : "dN"(port));
+    return data;
+}

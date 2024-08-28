@@ -27,6 +27,7 @@ unsigned char* current_opt = kbdes_opt;
 enum KEYBOARD_LAYOUT current_layout = USA;
 unsigned char* current = kbdus;
 unsigned char* current_shift = kbdus_shift;
+unsigned char* current_opt = kbdes_opt;
 #endif
 
 int shift = 0;

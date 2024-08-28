@@ -32,6 +32,12 @@ void init() {
     out("Avery Kernel\n");
     out("Version Alpha 0.0.1\n");
     out("Created by Maxims Enterprise\n\n");
+#ifdef DEBUG
+    set_color(GREEN);
+    out("This version is created for debugging purpose\nFor a better "
+        "experience, use it with QEMU\n");
+    reset_color();
+#endif
 
     while (1) {
         char* in = input("> ");

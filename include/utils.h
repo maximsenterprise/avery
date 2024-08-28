@@ -26,5 +26,9 @@ char *strchar(const char *str, char c);
 char *substring(const char *str, int start, int end);
 const char *char_to_string(char c);
 void hex_to_bin(unsigned int hex, char *bin_str);
-;
+
+typedef unsigned char coreuint8_t;
+typedef unsigned short coreuint16_t;
+typedef unsigned int coreuint32_t;
+
 #endif  // UTILS_H

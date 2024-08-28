@@ -9,6 +9,7 @@
 
 #include "fision/terminal.h"
 
+#include "drivers/acpi.h"
 #include "fision/medit.h"
 #include "output.h"
 #include "utils.h"
@@ -30,6 +31,12 @@ void process_input(const char* input) {
         medit();
     } else if (strcompare(parts[0], "capture")) {
         capture((const char**)parts);
+    } else if (strcompare(parts[0], "shutdown")) {
+#ifdef DEBUG
+        debug_shutdown();
+#else
+        poweroff();
+#endif
     } else {
         set_color(LIGHT_RED);
         out("Command not found: ");
